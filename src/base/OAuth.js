@@ -2,19 +2,19 @@ import CONFIG from '../config';
 import HttpMethod from '../constants/HttpMethod';
 import { request } from './HTTP';
 import history from '../history';
-import {isUserOneOfRoles, isUserRole} from "../util/UserUtil";
+import { isUserOneOfRoles, isUserRole } from "../util/UserUtil";
 
 /** OAUTH **/
 
 function jsonToFormData(json) {
     var formData = new FormData();
-  
+
     Object.keys(json).forEach(key => {
-      formData.append(key, json[key]);
+        formData.append(key, json[key]);
     });
-  
+
     return formData;
-  }
+}
 
 export async function login(username, password) {
 
@@ -30,32 +30,32 @@ export async function login(username, password) {
 
     return await request('/oauth/token', data, HttpMethod.POST).then((response) => {
 
-            if(!response.ok) {
-                return response;
+        if (!response.ok) {
+            return response;
+        }
+
+        setTokenToLocalStorage(response.data.access_token, response.data.refresh_token);
+
+        return request('/api/user/current').then((response) => {
+
+            console.log(response);
+
+            if (response.data) {
+
+                if (isUserOneOfRoles(response.data, CONFIG.rolesAllowed)) {
+                    setUserToLocalStorage(response.data)
+                }
+                else {
+
+                    clearUserData();
+                    response.ok = false;
+
+                }
             }
 
-            setTokenToLocalStorage(response.data.access_token, response.data.refresh_token);
-
-            return request('/api/user/current').then((response) => {
-
-                console.log(response);
-
-                if(response.data) {
-
-                    if(isUserOneOfRoles(response.data, CONFIG.rolesAllowed)) {
-                        setUserToLocalStorage(response.data)
-                    }
-                    else {
-
-                        clearUserData();
-                        response.ok = false;
-
-                    }
-                }
-
-                return response;
-            });
-        }
+            return response;
+        });
+    }
     );
 }
 
@@ -73,14 +73,14 @@ export async function unlock(username, password) {
 
     return await request('/oauth/v2/token', data, HttpMethod.GET).then((response) => {
 
-            if(!response.ok) {
-                return response;
-            }
-
-            setTokenToLocalStorage(response.data.access_token, response.data.refresh_token);
-
+        if (!response.ok) {
             return response;
         }
+
+        setTokenToLocalStorage(response.data.access_token, response.data.refresh_token);
+
+        return response;
+    }
     );
 }
 
@@ -98,7 +98,7 @@ export async function socialLogin(provider, email, firstName, lastName, socialId
 
     return await request('/social/authenticate', data, HttpMethod.POST).then((response) => {
 
-        if(!response.ok) {
+        if (!response.ok) {
             return;
         }
 
@@ -106,9 +106,9 @@ export async function socialLogin(provider, email, firstName, lastName, socialId
 
         return request('/user/current').then((response) => {
 
-            if(response.data.user) {
+            if (response.data.user) {
 
-                if(isUserOneOfRoles(response.data.user, CONFIG.rolesAllowed)) {
+                if (isUserOneOfRoles(response.data.user, CONFIG.rolesAllowed)) {
                     setUserToLocalStorage(response.data.user)
                 }
                 else {
@@ -135,12 +135,12 @@ export async function refreshToken(refreshToken) {
 
     return await request('/oauth/v2/token', data, HttpMethod.GET).then((response) => {
 
-            if(response.data && response.data.access_token && response.data.refresh_token) {
-                setTokenToLocalStorage(response.data.access_token, response.data.refresh_token);
-            }
-
-            return true;
+        if (response.data && response.data.access_token && response.data.refresh_token) {
+            setTokenToLocalStorage(response.data.access_token, response.data.refresh_token);
         }
+
+        return true;
+    }
     );
 }
 

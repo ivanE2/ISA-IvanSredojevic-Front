@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import CONFIG from "../config";
 
 class Pagination extends Component {
@@ -7,7 +7,7 @@ class Pagination extends Component {
     constructor(props) {
         super(props);
 
-        this.state ={
+        this.state = {
             page: props.page ? props.page : 1,
             perPage: props.perPage ? props.perPage : CONFIG.perPage,
             total: props.total ? props.total : 0,
@@ -31,7 +31,7 @@ class Pagination extends Component {
         let pageNumber = this.getPageNumber(this.state.total, this.state.perPage);
         let start, end;
 
-        if(pageNumber < 6 || this.state.page - 2 < 1) {
+        if (pageNumber < 6 || this.state.page - 2 < 1) {
             start = 1;
             end = pageNumber
         }
@@ -42,10 +42,10 @@ class Pagination extends Component {
 
         let result = [];
 
-        for(let i = start; i <= end; i++) {
+        for (let i = start; i <= end; i++) {
 
             result.push(
-                <a onClick={ () => this.props.setPage(i) } key={ 'page-' + i } className={ i === this.state.page && 'active' } >{ i }</a>
+                <a onClick={() => this.props.setPage(i)} key={'page-' + i} className={i === this.state.page && 'active'} >{i}</a>
             )
         }
 
@@ -54,21 +54,21 @@ class Pagination extends Component {
 
     render() {
 
-        if(this.state.total < this.state.perPage || this.state.pageNumber === 1) {
+        if (this.state.total < this.state.perPage || this.state.pageNumber === 1) {
             return '';
         }
 
         return (
             <div className='pagination'>
 
-                <div className={ this.state.page === 1 ? 'controls left disabled' : 'controls left' }>
-                    <a onClick={ () => this.props.setPage(1) }><img src={'images/icons/left-arrow.png'}/></a>
+                <div className={this.state.page === 1 ? 'controls left disabled' : 'controls left'}>
+                    <a onClick={() => this.props.setPage(1)}><img src={'images/icons/left-arrow.png'} /></a>
                 </div>
                 <div className='pages'>
-                    { this.renderPages() }
+                    {this.renderPages()}
                 </div>
-                <div className={ this.state.page === this.state.pageNumber ? 'controls right disabled' : 'controls right' }>
-                    <a onClick={ () => this.props.setPage(this.state.pageNumber) }><img src={'images/icons/right-arrow.png'}/></a>
+                <div className={this.state.page === this.state.pageNumber ? 'controls right disabled' : 'controls right'}>
+                    <a onClick={() => this.props.setPage(this.state.pageNumber)}><img src={'images/icons/right-arrow.png'} /></a>
                 </div>
             </div>
         );

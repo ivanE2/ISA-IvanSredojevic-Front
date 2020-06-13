@@ -1,11 +1,11 @@
 import React from 'react'
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
 import * as Actions from "../actions/Actions";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
 import strings from "../localization";
-import {withSnackbar} from "notistack";
-import {ListItemIcon, ListItemText, Menu, MenuItem, TableCell, Grid, Paper, Drawer, Button} from "@material-ui/core";
+import { withSnackbar } from "notistack";
+import { ListItemIcon, ListItemText, Menu, MenuItem, TableCell, Grid, Paper, Drawer, Button } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVert from '@material-ui/icons/MoreVert';
 import UndoIcon from '@material-ui/icons/Undo';
@@ -33,7 +33,7 @@ class HallTermin extends TablePage {
     constructor(props) {
         super(props);
 
-        this.state.sort = {name: 'name asc', value: 'name,asc'}
+        this.state.sort = { name: 'name asc', value: 'name,asc' }
 
         this.state.showAdd = false;
         this.state.types = [];
@@ -65,8 +65,8 @@ class HallTermin extends TablePage {
         });
 
         getClinicsHallTermins(this.state.clinicId, this.state.date).then(response => {
-            
-            if(!response.ok) {
+
+            if (!response.ok) {
                 return;
             }
 
@@ -82,7 +82,7 @@ class HallTermin extends TablePage {
     componentDidMount() {
 
         this.state.date = this.getSearchParam('date') ? this.getSearchParam('date') : dateToString(new Date());
-        this.state.clinicId = this.getSearchParam('clinicId'); 
+        this.state.clinicId = this.getSearchParam('clinicId');
 
 
         this.fetchData();
@@ -90,11 +90,11 @@ class HallTermin extends TablePage {
 
     getSelectedType(types, id) {
 
-        
-        for(let type of types) {
 
-            if(type.id == id) {
-                
+        for (let type of types) {
+
+            if (type.id == id) {
+
                 return type;
             }
         }
@@ -120,25 +120,25 @@ class HallTermin extends TablePage {
 
         let ariaOwns = 'action-menu-' + index;
 
-        return(
+        return (
             <TableCell>
                 <IconButton
-                    aria-owns={ this.state.anchorEl ? ariaOwns : undefined }
+                    aria-owns={this.state.anchorEl ? ariaOwns : undefined}
                     aria-haspopup="true"
-                    onClick={ (event) => this.handleMenuClick(event, ariaOwns) }
+                    onClick={(event) => this.handleMenuClick(event, ariaOwns)}
                 >
-                    <MoreVert/>
+                    <MoreVert />
                 </IconButton>
                 {
                     ariaOwns === this.state.ariaOwns &&
                     <Menu
-                        id={ ariaOwns }
-                        anchorEl={ this.state.anchorEl }
-                        open={ Boolean(this.state.anchorEl) }
-                        onClose={ () => this.handleMenuClose() }
+                        id={ariaOwns}
+                        anchorEl={this.state.anchorEl}
+                        open={Boolean(this.state.anchorEl)}
+                        onClose={() => this.handleMenuClose()}
                     >
-                        <MenuItem onClick={ () => this.handleClinicSelect(item) }>
-                            <ListItemText inset primary='Make appointment'/>
+                        <MenuItem onClick={() => this.handleClinicSelect(item)}>
+                            <ListItemText inset primary='Make appointment' />
                         </MenuItem>
                     </Menu>
                 }
@@ -156,7 +156,7 @@ class HallTermin extends TablePage {
     }
 
     onChangeDate(event) {
-        
+
         this.setState({
             date: event.target.value
         });
@@ -175,26 +175,26 @@ class HallTermin extends TablePage {
     search() {
         this.fetchData();
     }
-    
+
 
     render() {
 
         return (
             <Grid id='table-page'>
-                { this.renderDialog(strings.table.confirmDelete, 'To subscribe to this website, please enter your email address here. We will send\n' +
-                    'updates occasionally.', this.cancelDelete, this.delete) }
+                {this.renderDialog(strings.table.confirmDelete, 'To subscribe to this website, please enter your email address here. We will send\n' +
+                    'updates occasionally.', this.cancelDelete, this.delete)}
                 <div className='header'>
-                    { this.getPageHeader() }
+                    {this.getPageHeader()}
 
-                    <div className='filter-controls's>
+                    <div className='filter-controls' s>
 
                         {
                             this.state.showSearch &&
-                            
+
                             <React.Fragment>
 
-                                <div style={{ width: '400px;', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                                    
+                                <div style={{ width: '400px;', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
                                     <DatePickerControl
                                         label='Date'
                                         name='Date'
@@ -202,16 +202,16 @@ class HallTermin extends TablePage {
                                         placeholder={this.state.date}
                                         onChange={(date) => this.onChangeDate(date)}
                                     />
-                                    <Button  onClick={() => this.search()}>Search</Button>
+                                    <Button onClick={() => this.search()}>Search</Button>
                                 </div>
 
                                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                    
+
                                 </div>
-                                
+
 
                             </React.Fragment>
-                            
+
                         }
 
                         {
@@ -221,12 +221,12 @@ class HallTermin extends TablePage {
                     </div>
                 </div>
                 <Paper md={12}>
-                    { this.renderTable(this.state.tableData) }
+                    {this.renderTable(this.state.tableData)}
                 </Paper>
 
-                <Drawer id='drawer' anchor='right' open={  this.showDrawer() } onClose={ () => this.setPageState(PageState.View) } >
-                    <DrawerWrapper onBack={ () => this.setPageState(PageState.View) }>
-                        { this.renderDrawerContent() }
+                <Drawer id='drawer' anchor='right' open={this.showDrawer()} onClose={() => this.setPageState(PageState.View)} >
+                    <DrawerWrapper onBack={() => this.setPageState(PageState.View)}>
+                        {this.renderDrawerContent()}
                     </DrawerWrapper>
                 </Drawer>
             </Grid>
@@ -234,15 +234,13 @@ class HallTermin extends TablePage {
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeFullScreen: Actions.changeFullScreen
     }, dispatch);
 }
 
-function mapStateToProps({ menuReducers })
-{
+function mapStateToProps({ menuReducers }) {
     return { menu: menuReducers };
 }
 

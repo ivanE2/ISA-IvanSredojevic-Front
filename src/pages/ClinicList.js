@@ -1,11 +1,11 @@
 import React from 'react'
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
 import * as Actions from "../actions/Actions";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
 import strings from "../localization";
-import {withSnackbar} from "notistack";
-import {ListItemIcon, ListItemText, Menu, MenuItem, TableCell, Grid, Paper, Drawer, Button} from "@material-ui/core";
+import { withSnackbar } from "notistack";
+import { ListItemIcon, ListItemText, Menu, MenuItem, TableCell, Grid, Paper, Drawer, Button } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVert from '@material-ui/icons/MoreVert';
 import UndoIcon from '@material-ui/icons/Undo';
@@ -34,7 +34,7 @@ class ClinicList extends TablePage {
     constructor(props) {
         super(props);
 
-        this.state.sort = {name: 'name asc', value: 'name,asc'}
+        this.state.sort = { name: 'name asc', value: 'name,asc' }
 
         this.state.showAdd = false;
         this.state.types = [];
@@ -55,8 +55,8 @@ class ClinicList extends TablePage {
             term: this.state.searchData.search.toLowerCase(),
             sort: this.state.sort.value
         }).then(response => {
-            
-            if(!response.ok) {
+
+            if (!response.ok) {
                 return;
             }
 
@@ -73,7 +73,7 @@ class ClinicList extends TablePage {
         this.fetchData();
 
         getAppointmentTypes().then(response => {
-            
+
             this.setState({
                 types: response.data.entities,
                 selectedType: response.data.entities[0]
@@ -91,7 +91,7 @@ class ClinicList extends TablePage {
     }
 
     handleClinicSelect(item) {
-        
+
         localStorage.setItem('clinic', item);
     }
 
@@ -105,25 +105,25 @@ class ClinicList extends TablePage {
 
         let ariaOwns = 'action-menu-' + index;
 
-        return(
+        return (
             <TableCell>
                 <IconButton
-                    aria-owns={ this.state.anchorEl ? ariaOwns : undefined }
+                    aria-owns={this.state.anchorEl ? ariaOwns : undefined}
                     aria-haspopup="true"
-                    onClick={ (event) => this.handleMenuClick(event, ariaOwns) }
+                    onClick={(event) => this.handleMenuClick(event, ariaOwns)}
                 >
-                    <MoreVert/>
+                    <MoreVert />
                 </IconButton>
                 {
                     ariaOwns === this.state.ariaOwns &&
                     <Menu
-                        id={ ariaOwns }
-                        anchorEl={ this.state.anchorEl }
-                        open={ Boolean(this.state.anchorEl) }
-                        onClose={ () => this.handleMenuClose() }
+                        id={ariaOwns}
+                        anchorEl={this.state.anchorEl}
+                        open={Boolean(this.state.anchorEl)}
+                        onClose={() => this.handleMenuClose()}
                     >
-                        <MenuItem onClick={ () => this.handleHallTermins(item) }>
-                            <ListItemText inset primary='Hall termins'/>
+                        <MenuItem onClick={() => this.handleHallTermins(item)}>
+                            <ListItemText inset primary='Hall termins' />
                         </MenuItem>
                     </Menu>
                 }
@@ -140,7 +140,7 @@ class ClinicList extends TablePage {
             this.fetchData();
         });
 
-        
+
     }
 
     onTypeChange(event) {
@@ -153,16 +153,16 @@ class ClinicList extends TablePage {
     }
 
     onChangeDate(event) {
-        
+
 
         this.setState({
-            date: dateToString(event.target.value )
+            date: dateToString(event.target.value)
         }, () => {
         });
     }
 
     search() {
-        this.props.history.push('/clinics/termins?type=' + this.state.selectedType.id + '&date=' + this.state.date + '&city=' + this.state.city );
+        this.props.history.push('/clinics/termins?type=' + this.state.selectedType.id + '&date=' + this.state.date + '&city=' + this.state.city);
     }
 
     onChangeCity(event) {
@@ -177,26 +177,26 @@ class ClinicList extends TablePage {
 
         return (
             <Grid id='table-page'>
-                { this.renderDialog(strings.table.confirmDelete, 'To subscribe to this website, please enter your email address here. We will send\n' +
-                    'updates occasionally.', this.cancelDelete, this.delete) }
+                {this.renderDialog(strings.table.confirmDelete, 'To subscribe to this website, please enter your email address here. We will send\n' +
+                    'updates occasionally.', this.cancelDelete, this.delete)}
                 <div className='header'>
-                    { this.getPageHeader() }
+                    {this.getPageHeader()}
 
                     <div className='filter-controls'>
 
                         {
                             this.state.showSearch &&
-                            
+
                             <React.Fragment>
 
-                                
-                                <div style={{ width: '400px;', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+
+                                <div style={{ width: '400px;', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                     <TextField
                                         label='City'
                                         name='city'
-                                        onChange={ (e) => this.onChangeCity(e) }
+                                        onChange={(e) => this.onChangeCity(e)}
                                         margin="normal"
-                                        value={ this.state.city }
+                                        value={this.state.city}
                                     />
 
                                     <DatePickerControl
@@ -210,7 +210,7 @@ class ClinicList extends TablePage {
 
                                     <SelectControl
                                         label='Type'
-                                        style={{ width: '200px'}}
+                                        style={{ width: '200px' }}
                                         options={this.state.types}
                                         nameKey={'name'}
                                         valueKey={'id'}
@@ -220,26 +220,26 @@ class ClinicList extends TablePage {
 
                                     <SelectControl
                                         label='Sort'
-                                        style={{ width: '200px'}}
-                                        options={[{name: 'name asc', value: 'name,asc'}, {name: 'city asc', value: 'city,asc'},
-                                        {name: 'rate asc', value: 'averageRate,asc'},
-                                        {name: 'name desc', value: 'name,desc'}, {name: 'city desc', value: 'city,desc'},
-                                        {name: 'rate desc', value: 'averageRate,desc'} ]}
+                                        style={{ width: '200px' }}
+                                        options={[{ name: 'name asc', value: 'name,asc' }, { name: 'city asc', value: 'city,asc' },
+                                        { name: 'rate asc', value: 'averageRate,asc' },
+                                        { name: 'name desc', value: 'name,desc' }, { name: 'city desc', value: 'city,desc' },
+                                        { name: 'rate desc', value: 'averageRate,desc' }]}
                                         nameKey={'name'}
                                         valueKey={'value'}
                                         selected={this.state.sort}
                                         onChange={(event) => this.onSortChange(event)}
                                     />
                                 </div>
-                                
+
 
                                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                    <Button  onClick={() => this.search()}>Search</Button>
+                                    <Button onClick={() => this.search()}>Search</Button>
                                 </div>
 
 
                             </React.Fragment>
-                            
+
                         }
 
                         {
@@ -249,12 +249,12 @@ class ClinicList extends TablePage {
                     </div>
                 </div>
                 <Paper md={12}>
-                    { this.renderTable(this.state.tableData) }
+                    {this.renderTable(this.state.tableData)}
                 </Paper>
 
-                <Drawer id='drawer' anchor='right' open={  this.showDrawer() } onClose={ () => this.setPageState(PageState.View) } >
-                    <DrawerWrapper onBack={ () => this.setPageState(PageState.View) }>
-                        { this.renderDrawerContent() }
+                <Drawer id='drawer' anchor='right' open={this.showDrawer()} onClose={() => this.setPageState(PageState.View)} >
+                    <DrawerWrapper onBack={() => this.setPageState(PageState.View)}>
+                        {this.renderDrawerContent()}
                     </DrawerWrapper>
                 </Drawer>
             </Grid>
@@ -262,15 +262,13 @@ class ClinicList extends TablePage {
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeFullScreen: Actions.changeFullScreen
     }, dispatch);
 }
 
-function mapStateToProps({ menuReducers })
-{
+function mapStateToProps({ menuReducers }) {
     return { menu: menuReducers };
 }
 

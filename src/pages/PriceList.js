@@ -1,14 +1,14 @@
 import React from 'react'
 import TablePage from "../../../common/TablePage";
-import {deleteUser, getUsers, restoreUser} from "../../../services/admin/UserAdminService";
-import {bindActionCreators} from "redux";
+import { deleteUser, getUsers, restoreUser } from "../../../services/admin/UserAdminService";
+import { bindActionCreators } from "redux";
 import * as Actions from "../../../actions/Actions";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
 import strings from "../../../localization";
 import AddUser from "./AddUser";
-import {withSnackbar} from "notistack";
-import {ListItemIcon, ListItemText, Menu, MenuItem, TableCell} from "@material-ui/core";
+import { withSnackbar } from "notistack";
+import { ListItemIcon, ListItemText, Menu, MenuItem, TableCell } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVert from '@material-ui/icons/MoreVert';
 import UndoIcon from '@material-ui/icons/Undo';
@@ -40,7 +40,7 @@ class PriceList extends TablePage {
             term: this.state.searchData.search.toLowerCase()
         }).then(response => {
 
-            if(!response.ok) {
+            if (!response.ok) {
                 return;
             }
 
@@ -57,11 +57,11 @@ class PriceList extends TablePage {
     }
 
     getPageHeader() {
-        return <h1>{ strings.userList.pageTitle }</h1>;
+        return <h1>{strings.userList.pageTitle}</h1>;
     }
 
     renderAddContent() {
-        return <AddUser onCancel={ this.onCancel } onFinish={ this.onFinish }/>
+        return <AddUser onCancel={this.onCancel} onFinish={this.onFinish} />
     }
 
     delete(item) {
@@ -72,7 +72,7 @@ class PriceList extends TablePage {
 
         deleteUser(item.id).then(response => {
 
-            if(response && !response.ok) {
+            if (response && !response.ok) {
                 this.onFinish(null);
                 return;
             }
@@ -96,7 +96,7 @@ class PriceList extends TablePage {
 
         restoreUser(item.id).then(response => {
 
-            if(response && !response.ok) {
+            if (response && !response.ok) {
                 this.onFinish(null);
                 return;
             }
@@ -115,39 +115,39 @@ class PriceList extends TablePage {
 
         let ariaOwns = 'action-menu-' + index;
 
-        return(
+        return (
             <TableCell>
                 <IconButton
-                    aria-owns={ this.state.anchorEl ? ariaOwns : undefined }
+                    aria-owns={this.state.anchorEl ? ariaOwns : undefined}
                     aria-haspopup="true"
-                    onClick={ (event) => this.handleMenuClick(event, ariaOwns) }
+                    onClick={(event) => this.handleMenuClick(event, ariaOwns)}
                 >
-                    <MoreVert/>
+                    <MoreVert />
                 </IconButton>
                 {
                     ariaOwns === this.state.ariaOwns &&
                     <Menu
-                        id={ ariaOwns }
-                        anchorEl={ this.state.anchorEl }
-                        open={ Boolean(this.state.anchorEl) }
-                        onClose={ () => this.handleMenuClose() }
+                        id={ariaOwns}
+                        anchorEl={this.state.anchorEl}
+                        open={Boolean(this.state.anchorEl)}
+                        onClose={() => this.handleMenuClose()}
                     >
                         {
                             !item[this.deletedField] &&
-                            <MenuItem onClick={ () => this.handleMenuDelete(item) }>
+                            <MenuItem onClick={() => this.handleMenuDelete(item)}>
                                 <ListItemIcon>
-                                    <DeleteIcon/>
+                                    <DeleteIcon />
                                 </ListItemIcon>
-                                <ListItemText inset primary={ strings.table.delete }/>
+                                <ListItemText inset primary={strings.table.delete} />
                             </MenuItem>
                         }
                         {
                             item[this.deletedField] &&
-                            <MenuItem onClick={ () => this.handleRestore(item) }>
+                            <MenuItem onClick={() => this.handleRestore(item)}>
                                 <ListItemIcon>
-                                    <UndoIcon/>
+                                    <UndoIcon />
                                 </ListItemIcon>
-                                <ListItemText inset primary={ strings.table.undo }/>
+                                <ListItemText inset primary={strings.table.undo} />
                             </MenuItem>
                         }
 
@@ -159,15 +159,13 @@ class PriceList extends TablePage {
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeFullScreen: Actions.changeFullScreen
     }, dispatch);
 }
 
-function mapStateToProps({ menuReducers })
-{
+function mapStateToProps({ menuReducers }) {
     return { menu: menuReducers };
 }
 

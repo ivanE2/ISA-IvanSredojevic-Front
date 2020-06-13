@@ -29,13 +29,13 @@ import {
     TableHead, TablePagination,
     TableRow, TextField
 } from "@material-ui/core";
-import {dateToString} from "../util/DateUtil";
+import { dateToString } from "../util/DateUtil";
 import PageState from "../constants/PageState";
 import DrawerWrapper from "./DrawerWrapper";
 
 class TablePage extends Page {
 
-    tableDescription= [];
+    tableDescription = [];
 
     params = [
         { name: 'search', defaultValue: '' },
@@ -89,11 +89,11 @@ class TablePage extends Page {
             pageState: PageState.View
         });
 
-        if(!fetch) {
+        if (!fetch) {
             return;
         }
 
-        setTimeout(()=> {
+        setTimeout(() => {
             this.fetchData()
         }, 1000);
     }
@@ -213,51 +213,51 @@ class TablePage extends Page {
 
         let ariaOwns = 'action-menu-' + index;
 
-        return(
+        return (
             <TableCell>
                 <IconButton
-                    aria-owns={ this.state.anchorEl ? ariaOwns : undefined }
+                    aria-owns={this.state.anchorEl ? ariaOwns : undefined}
                     aria-haspopup="true"
-                    onClick={ (event) => this.handleMenuClick(event, ariaOwns) }
+                    onClick={(event) => this.handleMenuClick(event, ariaOwns)}
                 >
-                    <MoreVert/>
+                    <MoreVert />
                 </IconButton>
                 {
                     ariaOwns === this.state.ariaOwns &&
                     <Menu
-                        id={ ariaOwns }
-                        anchorEl={ this.state.anchorEl }
-                        open={ Boolean(this.state.anchorEl) }
-                        onClose={ () => this.handleMenuClose() }
+                        id={ariaOwns}
+                        anchorEl={this.state.anchorEl}
+                        open={Boolean(this.state.anchorEl)}
+                        onClose={() => this.handleMenuClose()}
                     >
-                        <MenuItem onClick={ () => this.handleMenuView(item) }>
+                        <MenuItem onClick={() => this.handleMenuView(item)}>
                             <ListItemIcon>
-                                <VisibilityIcon/>
+                                <VisibilityIcon />
                             </ListItemIcon>
-                            <ListItemText inset primary={ strings.table.view }/>
+                            <ListItemText inset primary={strings.table.view} />
                         </MenuItem>
-                        <MenuItem onClick={ () => this.handleMenuEdit(item) }>
+                        <MenuItem onClick={() => this.handleMenuEdit(item)}>
                             <ListItemIcon>
-                                <EditIcon/>
+                                <EditIcon />
                             </ListItemIcon>
-                            <ListItemText inset primary={ strings.table.edit }/>
+                            <ListItemText inset primary={strings.table.edit} />
                         </MenuItem>
                         {
                             !item[this.deletedField] &&
-                            <MenuItem onClick={ () => this.handleMenuDelete(item) }>
+                            <MenuItem onClick={() => this.handleMenuDelete(item)}>
                                 <ListItemIcon>
-                                    <DeleteIcon/>
+                                    <DeleteIcon />
                                 </ListItemIcon>
-                                <ListItemText inset primary={ strings.table.delete }/>
+                                <ListItemText inset primary={strings.table.delete} />
                             </MenuItem>
                         }
                         {
                             item[this.deletedField] &&
-                            <MenuItem onClick={ () => this.handleRestore(item) }>
+                            <MenuItem onClick={() => this.handleRestore(item)}>
                                 <ListItemIcon>
-                                    <UndoIcon/>
+                                    <UndoIcon />
                                 </ListItemIcon>
-                                <ListItemText inset primary={ strings.table.undo }/>
+                                <ListItemText inset primary={strings.table.undo} />
                             </MenuItem>
                         }
 
@@ -272,10 +272,10 @@ class TablePage extends Page {
 
         let result = [];
 
-        for(let description of this.tableDescription) {
+        for (let description of this.tableDescription) {
 
             result.push(
-                <TableCell key={ 'table-data-' + description.key + '-' + result.length }>
+                <TableCell key={'table-data-' + description.key + '-' + result.length}>
                     {
                         description.transform !== undefined &&
                         this[description.transform](item[description.key])
@@ -295,25 +295,25 @@ class TablePage extends Page {
 
         let result = [];
 
-        for(let item of data) {
+        for (let item of data) {
 
             let className = 'table-row-' + result.length % 2;
 
-            if(this.isRowSelected(item)) {
+            if (this.isRowSelected(item)) {
                 className += ' selected';
             }
 
             result.push(
-                <TableRow key={ 'table-row-' + result.length } className={ className } onClick={ () => this.selectRow(item) }>
-                    { this.state.showActions && this.renderRowMenu(result.length, item) }
-                    { this.renderTableRowData(item) }
+                <TableRow key={'table-row-' + result.length} className={className} onClick={() => this.selectRow(item)}>
+                    {this.state.showActions && this.renderRowMenu(result.length, item)}
+                    {this.renderTableRowData(item)}
                 </TableRow>
             )
         }
 
         return (
             <TableBody>
-                { result }
+                {result}
             </TableBody>
         );
     }
@@ -322,11 +322,11 @@ class TablePage extends Page {
 
         let result = [];
 
-        for(let item of this.tableDescription) {
+        for (let item of this.tableDescription) {
 
             result.push(
-                <TableCell key={ 'table-header-' + result.length }>
-                    { item.label }
+                <TableCell key={'table-header-' + result.length}>
+                    {item.label}
                 </TableCell>
             )
         }
@@ -337,11 +337,11 @@ class TablePage extends Page {
                     {
                         this.state.showActions &&
                         <TableCell>
-                            { strings.table.actions }
+                            {strings.table.actions}
                         </TableCell>
                     }
-                    
-                    { result }
+
+                    {result}
                 </TableRow>
             </TableHead>
         );
@@ -352,12 +352,12 @@ class TablePage extends Page {
         return (
             <TableFooter>
                 <TableRow>
-                    <TablePagination count={ this.state.total } rowsPerPageOptions={ CONFIG.rowsPerPage }
-                                     colSpan={ this.tableDescription.length + 1 } page={ this.state.searchData.page - 1 } rowsPerPage={ this.state.searchData.perPage }
-                                     onChangePage={ this.handleChangePage } onChangeRowsPerPage={ this.handleChangeRowsPerPage }
-                                     SelectProps={{
-                                         native: true,
-                                     }}
+                    <TablePagination count={this.state.total} rowsPerPageOptions={CONFIG.rowsPerPage}
+                        colSpan={this.tableDescription.length + 1} page={this.state.searchData.page - 1} rowsPerPage={this.state.searchData.perPage}
+                        onChangePage={this.handleChangePage} onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                        SelectProps={{
+                            native: true,
+                        }}
                     />
                 </TableRow>
             </TableFooter>
@@ -368,7 +368,7 @@ class TablePage extends Page {
 
     renderColumnDeleted(value) {
 
-        return value ? <DoneIcon/> : <CloseIcon/>;
+        return value ? <DoneIcon /> : <CloseIcon />;
     }
 
     renderColumnDate(value) {
@@ -382,13 +382,13 @@ class TablePage extends Page {
             {
                 this.state.lockTable &&
                 <div className='lock-table'>
-                    <LinearProgress/>
+                    <LinearProgress />
                 </div>
             }
 
-            { this.renderTableHeader() }
-            { this.renderTableRow(data) }
-            { this.renderTableFooter() }
+            {this.renderTableHeader()}
+            {this.renderTableRow(data)}
+            {this.renderTableFooter()}
         </Table>
     }
 
@@ -416,24 +416,24 @@ class TablePage extends Page {
     renderDialog(title, text, cancel, deleteFunction) {
 
         return (
-            <Dialog open={ this.state.showConfirmDialog }
-                    onClose={ () => cancel() }
-                    aria-labelledby='draggable-dialog-title'
+            <Dialog open={this.state.showConfirmDialog}
+                onClose={() => cancel()}
+                aria-labelledby='draggable-dialog-title'
             >
                 <DialogTitle id='draggable-dialog-title'>
-                    { title }
+                    {title}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        { text }
+                        {text}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={ () => cancel() } color='primary' variant="contained">
-                        { strings.table.no }
+                    <Button onClick={() => cancel()} color='primary' variant="contained">
+                        {strings.table.no}
                     </Button>
-                    <Button onClick={ () => deleteFunction(this.state.selectedItem) } color='secondary' variant="contained">
-                        { strings.table.yes }
+                    <Button onClick={() => deleteFunction(this.state.selectedItem)} color='secondary' variant="contained">
+                        {strings.table.yes}
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -446,8 +446,8 @@ class TablePage extends Page {
 
     renderTableControls() {
         return [
-            <IconButton onClick={ () => this.setPageState(PageState.Add) }>
-                <AddIcon/>
+            <IconButton onClick={() => this.setPageState(PageState.Add)}>
+                <AddIcon />
             </IconButton>
         ]
     }
@@ -456,21 +456,21 @@ class TablePage extends Page {
 
         return (
             <Grid id='table-page'>
-                { this.renderDialog(strings.table.confirmDelete, 'To subscribe to this website, please enter your email address here. We will send\n' +
-                    'updates occasionally.', this.cancelDelete, this.delete) }
+                {this.renderDialog(strings.table.confirmDelete, 'To subscribe to this website, please enter your email address here. We will send\n' +
+                    'updates occasionally.', this.cancelDelete, this.delete)}
                 <div className='header'>
-                    { this.getPageHeader() }
+                    {this.getPageHeader()}
 
                     <div className='filter-controls'>
 
                         {
                             this.state.showSearch &&
                             <TextField
-                                label={ strings.table.search }
+                                label={strings.table.search}
                                 type="search"
                                 name='search'
-                                value={ this.state.searchData.search }
-                                onChange={ this.searchChanged }
+                                value={this.state.searchData.search}
+                                onChange={this.searchChanged}
                             />
                         }
 
@@ -481,12 +481,12 @@ class TablePage extends Page {
                     </div>
                 </div>
                 <Paper md={12}>
-                    { this.renderTable(this.state.tableData) }
+                    {this.renderTable(this.state.tableData)}
                 </Paper>
 
-                <Drawer id='drawer' anchor='right' open={  this.showDrawer() } onClose={ () => this.setPageState(PageState.View) } >
-                    <DrawerWrapper onBack={ () => this.setPageState(PageState.View) }>
-                        { this.renderDrawerContent() }
+                <Drawer id='drawer' anchor='right' open={this.showDrawer()} onClose={() => this.setPageState(PageState.View)} >
+                    <DrawerWrapper onBack={() => this.setPageState(PageState.View)}>
+                        {this.renderDrawerContent()}
                     </DrawerWrapper>
                 </Drawer>
             </Grid>

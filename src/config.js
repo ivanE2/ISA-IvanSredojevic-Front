@@ -11,7 +11,7 @@ let CONFIG = {
     googleClientSecret: 'GOOGLE_CLIENT_SECRET',
     linkedInClientId: 'LINKEDIN_CLIENT_ID',
     linkedInCliendSecret: 'LINKEDIN_CLIENT_SECRET',
-    rowsPerPage: [ 30, 50, 100 ],
+    rowsPerPage: [30, 50, 100],
     rolesAllowed: ['PATIENT', 'ADMIN']
 };
 

@@ -1,6 +1,6 @@
-import {Component} from 'react'
-import {getUserFromLocalStorage, logout } from "../base/OAuth";
-import {isUserRole} from "../util/UserUtil";
+import { Component } from 'react'
+import { getUserFromLocalStorage, logout } from "../base/OAuth";
+import { isUserRole } from "../util/UserUtil";
 
 class BaseComponent extends Component {
 
@@ -29,7 +29,7 @@ class BaseComponent extends Component {
 
         let index = array.indexOf(item);
 
-        if(index == -1) {
+        if (index == -1) {
             return false;
         }
 
@@ -45,7 +45,7 @@ class BaseComponent extends Component {
 
     isUserAdmin() {
 
-        if(!this.props.user) {
+        if (!this.props.user) {
             return false;
         }
 

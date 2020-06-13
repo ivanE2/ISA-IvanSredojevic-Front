@@ -1,4 +1,4 @@
-import {request} from "../base/HTTP";
+import { request } from "../base/HTTP";
 import HttpMethod from "../constants/HttpMethod";
 
 export async function getAppointments(data) {
@@ -17,8 +17,7 @@ export async function getAppointmentTypes(data) {
     return await request('/api/appointmentType/');
 }
 
-export async function getTermins(type, date, city, clientId, name) 
-{
+export async function getTermins(type, date, city, clientId, name) {
     name = name ? name : 'null';
 
     return await request('/api/doctorTermin/' + clientId + '/' + type + '/' + date + '/' + city + '/' + name);

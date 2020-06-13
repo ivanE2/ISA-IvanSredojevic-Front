@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
 import * as Actions from "../actions/Actions";
-import {Link, withRouter} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
 import strings from "../localization";
 
@@ -22,11 +22,11 @@ class NotFound extends Component {
 
             <div id='not-found'>
                 <h1>404</h1>
-                <h3>{ strings.notFound.notFound }</h3>
+                <h3>{strings.notFound.notFound}</h3>
 
                 <Link to={'/'}>
                     <Button variant="contained" color="secondary">
-                        { strings.notFound.dashboard }
+                        {strings.notFound.dashboard}
                     </Button>
                 </Link>
             </div>
@@ -35,15 +35,13 @@ class NotFound extends Component {
 }
 
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeFullScreen: Actions.changeFullScreen
     }, dispatch);
 }
 
-function mapStateToProps({ menuReducers })
-{
+function mapStateToProps({ menuReducers }) {
     return { menu: menuReducers };
 }
 

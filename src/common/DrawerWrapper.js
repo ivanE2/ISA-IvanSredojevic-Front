@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
-import {Grid, IconButton} from "@material-ui/core";
-import  ChevronRight from "@material-ui/icons/ChevronRight"
+import { Grid, IconButton } from "@material-ui/core";
+import ChevronRight from "@material-ui/icons/ChevronRight"
 
 class DrawerWrapper extends Component {
 
@@ -17,12 +17,12 @@ class DrawerWrapper extends Component {
 
             <Grid className='drawer-wrapper'>
                 <div className='drawer-wrapper-header'>
-                    <IconButton onClick={ () => this.props.onBack() }>
-                        <ChevronRight/>
+                    <IconButton onClick={() => this.props.onBack()}>
+                        <ChevronRight />
                     </IconButton>
                 </div>
                 <div className='drawer-wrapper-content'>
-                    { children }
+                    {children}
                 </div>
             </Grid>
         );

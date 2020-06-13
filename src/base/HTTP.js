@@ -2,7 +2,7 @@ import CONFIG from '../config';
 import AuthenticationTypes from "../constants/AuthenticationTypes";
 import HttpMethod from '../constants/HttpMethod';
 import history from '../history';
-import {clearUserData, getRefreshToken, refreshToken, setTokenToLocalStorage} from './OAuth';
+import { clearUserData, getRefreshToken, refreshToken, setTokenToLocalStorage } from './OAuth';
 import axios from 'axios';
 
 const Axios = (function () {
@@ -18,12 +18,12 @@ const Axios = (function () {
     return {
         getInstance: function () {
 
-            if(!instance) {
+            if (!instance) {
                 instance = createInstance();
             }
 
-            if(getTokenType()) {
-                instance.defaults.headers.common['Authorization']  = getToken();
+            if (getTokenType()) {
+                instance.defaults.headers.common['Authorization'] = getToken();
             }
             instance.all = axios.all;
 
@@ -41,19 +41,19 @@ Axios.getInstance().interceptors.response.use(response => {
 
     const { response: { status } } = error;
 
-    if(status === 404) {
+    if (status === 404) {
 
         history.push('/not-found');
     }
-    else if(status === 500) {
+    else if (status === 500) {
 
         history.push('/error');
     }
-    else if(status === 401) {
+    else if (status === 401) {
 
         history.push('/forbidden');
     }
-    else if(status === 403) {
+    else if (status === 403) {
 
         clearUserData();
         history.push('/');
@@ -74,8 +74,8 @@ export async function requestFile(url, data = [], method = HttpMethod.GET) {
 
         let tokenType = getTokenType();
 
-        let headers =  {
-            'Access-Control-Allow-Credentials':'true',
+        let headers = {
+            'Access-Control-Allow-Credentials': 'true',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': 'Authorization',
             'Accept': 'application/json'
@@ -94,16 +94,16 @@ export async function requestFile(url, data = [], method = HttpMethod.GET) {
 export async function connect(url, data, method, options) {
 
     switch (method) {
-        case HttpMethod.GET : {
+        case HttpMethod.GET: {
             return await Axios.getInstance().get(url + makeParametersList(data), options);
         }
-        case HttpMethod.POST : return Axios.getInstance().post(url, data, options);
-        case HttpMethod.PUT : return Axios.getInstance().put(url, data, options);
-        case HttpMethod.DELETE : return Axios.getInstance().delete(url, options);
+        case HttpMethod.POST: return Axios.getInstance().post(url, data, options);
+        case HttpMethod.PUT: return Axios.getInstance().put(url, data, options);
+        case HttpMethod.DELETE: return Axios.getInstance().delete(url, options);
     }
 }
 
-export function makeParametersList(parameters){
+export function makeParametersList(parameters) {
     let parametersList = `?`;
 
     Object.keys(parameters).map((key, index) => (
@@ -135,8 +135,7 @@ export function getUserFromLocalStorage() {
 
 function getTokenType() {
 
-    if (localStorage.getItem(CONFIG.tokenKey))
-    {
+    if (localStorage.getItem(CONFIG.tokenKey)) {
         return AuthenticationTypes.BearerToken;
     }
     else if (localStorage.getItem(CONFIG.socialTokenKey)) {

@@ -1,11 +1,11 @@
 import React from 'react'
 import TablePage from "../common/TablePage";
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
 import * as Actions from "../actions/Actions";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
 import strings from "../localization";
-import {withSnackbar} from "notistack";
+import { withSnackbar } from "notistack";
 import { getRecords } from '../services/RecordService';
 
 class RecordList extends TablePage {
@@ -35,7 +35,7 @@ class RecordList extends TablePage {
             term: this.state.searchData.search.toLowerCase()
         }).then(response => {
 
-            if(!response.ok) {
+            if (!response.ok) {
                 return;
             }
 
@@ -68,15 +68,13 @@ class RecordList extends TablePage {
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeFullScreen: Actions.changeFullScreen
     }, dispatch);
 }
 
-function mapStateToProps({ menuReducers })
-{
+function mapStateToProps({ menuReducers }) {
     return { menu: menuReducers };
 }
 

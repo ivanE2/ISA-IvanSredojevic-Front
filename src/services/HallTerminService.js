@@ -1,4 +1,4 @@
-import {request} from "../base/HTTP";
+import { request } from "../base/HTTP";
 import HttpMethod from "../constants/HttpMethod";
 import { dateToString } from "../util/DateUtil";
 

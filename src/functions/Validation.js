@@ -1,9 +1,9 @@
 import strings from '../localization';
 import ValidatorTypes from '../constants/ValidatorTypes';
-import {isNumeric} from "../util/DataValidation";
+import { isNumeric } from "../util/DataValidation";
 
 
-export  function hasError(errors, type) {
+export function hasError(errors, type) {
     return errors && errors[type] && errors[type].length > 0;
 }
 
@@ -133,7 +133,7 @@ function password(data) {
 export function isFormValid(errors) {
     for (let key in errors) {
         let error = errors[key];
-        if (error.length !== 0){
+        if (error.length !== 0) {
             return false;
         }
     }

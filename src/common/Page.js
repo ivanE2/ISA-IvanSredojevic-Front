@@ -21,7 +21,7 @@ class Page extends FormComponent {
 
     componentWillReceiveProps(props) {
 
-        if(!this.needRefresh()) {
+        if (!this.needRefresh()) {
             return;
         }
 
@@ -43,14 +43,14 @@ class Page extends FormComponent {
 
         let loadedData = {};
 
-        for(let param of this.params) {
+        for (let param of this.params) {
 
             let paramString = this.getSearchParam(param.name);
             let value;
 
-            if(!paramString || paramString === '') {
+            if (!paramString || paramString === '') {
 
-                if(this.props[param.name]) {
+                if (this.props[param.name]) {
                     loadedData[param.name] = this.props[param.name];
                 }
                 else {
@@ -60,28 +60,28 @@ class Page extends FormComponent {
                 continue;
             }
 
-            if(paramString.includes(',')) {
+            if (paramString.includes(',')) {
 
                 value = [];
 
-                for(let item of paramString.split(',')) {
+                for (let item of paramString.split(',')) {
 
-                    if(this.isNumeric(item)) {
-                        if(this.isFloat(item)) {
+                    if (this.isNumeric(item)) {
+                        if (this.isFloat(item)) {
                             value.push(parseFloat(item));
                         }
-                        else if(this.isInt(item)) {
+                        else if (this.isInt(item)) {
                             value.push(parseInt(item));
                         }
                     }
                 }
             }
-            else if(this.isNumeric(paramString)) {
+            else if (this.isNumeric(paramString)) {
 
-                if(this.isFloat(paramString)) {
+                if (this.isFloat(paramString)) {
                     value = parseFloat(paramString);
                 }
-                else if(this.isInt(paramString)) {
+                else if (this.isInt(paramString)) {
                     value = parseInt(paramString);
                 }
             }
@@ -100,9 +100,9 @@ class Page extends FormComponent {
         let result = '?';
         let hasParams = false;
 
-        for(let param of this.params) {
+        for (let param of this.params) {
 
-            if(this.state[data][param.name]) {
+            if (this.state[data][param.name]) {
                 result += this.buildParam(param, this.state[data], hasParams);
                 hasParams = true;
             }
@@ -115,11 +115,11 @@ class Page extends FormComponent {
 
         let result = param.name + '=';
 
-        if(hasParams) {
+        if (hasParams) {
             result = '&' + result;
         }
 
-        if(Array.isArray(data[param.name])) {
+        if (Array.isArray(data[param.name])) {
             result += data[param.name].join();
         }
         else {
@@ -135,9 +135,9 @@ class Page extends FormComponent {
 
         this.loadParams(data);
 
-        for(const [key, value] of Object.entries(this.state[data])) {
+        for (const [key, value] of Object.entries(this.state[data])) {
 
-            if(oldParams[key] != this.state[data][key]){
+            if (oldParams[key] != this.state[data][key]) {
                 return true;
             }
         }

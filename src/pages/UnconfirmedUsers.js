@@ -1,12 +1,12 @@
 
 import React from 'react'
 import TablePage from "../common/TablePage";
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
 import * as Actions from "../actions/Actions";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
 import strings from "../localization";
-import {withSnackbar} from "notistack";
+import { withSnackbar } from "notistack";
 import { getSurgeries } from '../services/SurgeryService';
 import { getUnconfrimedUsers, confirmeUser } from '../services/UserService';
 import { TableCell, ListItemText, Menu, MenuItem } from '@material-ui/core';
@@ -42,7 +42,7 @@ class UnconfirmedUsers extends TablePage {
             term: this.state.searchData.search.toLowerCase()
         }).then(response => {
 
-            if(!response.ok) {
+            if (!response.ok) {
                 return;
             }
 
@@ -63,7 +63,7 @@ class UnconfirmedUsers extends TablePage {
     }
 
     renderAddContent() {
-        return <DeclineUser id={this.state.declineUser.id} onCancel={ this.onCancel } onFinish={ this.onFinish }/>
+        return <DeclineUser id={this.state.declineUser.id} onCancel={this.onCancel} onFinish={this.onFinish} />
     }
 
     handleConfirm(item) {
@@ -89,28 +89,28 @@ class UnconfirmedUsers extends TablePage {
 
         let ariaOwns = 'action-menu-' + index;
 
-        return(
+        return (
             <TableCell>
                 <IconButton
-                    aria-owns={ this.state.anchorEl ? ariaOwns : undefined }
+                    aria-owns={this.state.anchorEl ? ariaOwns : undefined}
                     aria-haspopup="true"
-                    onClick={ (event) => this.handleMenuClick(event, ariaOwns) }
+                    onClick={(event) => this.handleMenuClick(event, ariaOwns)}
                 >
-                    <MoreVert/>
+                    <MoreVert />
                 </IconButton>
                 {
                     ariaOwns === this.state.ariaOwns &&
                     <Menu
-                        id={ ariaOwns }
-                        anchorEl={ this.state.anchorEl }
-                        open={ Boolean(this.state.anchorEl) }
-                        onClose={ () => this.handleMenuClose() }
+                        id={ariaOwns}
+                        anchorEl={this.state.anchorEl}
+                        open={Boolean(this.state.anchorEl)}
+                        onClose={() => this.handleMenuClose()}
                     >
-                        <MenuItem onClick={ () => this.handleConfirm(item) }>
-                            <ListItemText inset primary='Confirm'/>
+                        <MenuItem onClick={() => this.handleConfirm(item)}>
+                            <ListItemText inset primary='Confirm' />
                         </MenuItem>
-                        <MenuItem onClick={ () => this.handleDecline(item) }>
-                            <ListItemText inset primary='Decline'/>
+                        <MenuItem onClick={() => this.handleDecline(item)}>
+                            <ListItemText inset primary='Decline' />
                         </MenuItem>
                     </Menu>
                 }
@@ -120,15 +120,13 @@ class UnconfirmedUsers extends TablePage {
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeFullScreen: Actions.changeFullScreen
     }, dispatch);
 }
 
-function mapStateToProps({ menuReducers })
-{
+function mapStateToProps({ menuReducers }) {
     return { menu: menuReducers };
 }
 

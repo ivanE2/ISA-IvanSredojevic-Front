@@ -8,7 +8,7 @@ const authReducers = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case  Actions.LOGIN:
+        case Actions.LOGIN:
         case Actions.LOAD_USER:
             return {
                 ...state,

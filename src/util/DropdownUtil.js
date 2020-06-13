@@ -1,7 +1,7 @@
 import isPlainObject from "react-redux/lib/utils/isPlainObject";
 
 export function getDropdownOptions(array, name, label, value = undefined) {
-    if(!array){
+    if (!array) {
         return;
     }
 
@@ -16,7 +16,7 @@ export function getDropdownOptions(array, name, label, value = undefined) {
 
 }
 
-export function getDropdownOptionsValue(option, value, name = 'name'){
+export function getDropdownOptionsValue(option, value, name = 'name') {
 
     return value !== undefined && value == option.value[name] ? value : undefined;
 }

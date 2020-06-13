@@ -1,7 +1,7 @@
 import React from 'react'
 
-import {Button, Drawer, Grid, IconButton} from "@material-ui/core";
-import  ChevronRight from "@material-ui/icons/ChevronRight"
+import { Button, Drawer, Grid, IconButton } from "@material-ui/core";
+import ChevronRight from "@material-ui/icons/ChevronRight"
 import FormComponent from "./FormComponent";
 import strings from "../localization";
 
@@ -29,7 +29,7 @@ class BaseFilter extends FormComponent {
 
     search() {
 
-        if(!this.props.onChange) {
+        if (!this.props.onChange) {
             return;
         }
 
@@ -45,19 +45,19 @@ class BaseFilter extends FormComponent {
     render() {
 
         return (
-            <Drawer id='filter' anchor='right' open={ this.state.open } onClose={ () => this.toggleFilter(false) } >
+            <Drawer id='filter' anchor='right' open={this.state.open} onClose={() => this.toggleFilter(false)} >
 
                 <Grid>
                     <div className='filter-header'>
-                        <IconButton onClick={ () => this.toggleFilter(false) }>
-                            <ChevronRight/>
+                        <IconButton onClick={() => this.toggleFilter(false)}>
+                            <ChevronRight />
                         </IconButton>
                     </div>
 
-                    { this.renderContent() }
+                    {this.renderContent()}
                     <div className='control-container'>
-                        <Button color='primary' variant="contained" onClick={ () => this.search() }>
-                            { strings.filter.search }
+                        <Button color='primary' variant="contained" onClick={() => this.search()}>
+                            {strings.filter.search}
                         </Button>
                     </div>
                 </Grid>

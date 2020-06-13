@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import {Link, withRouter} from "react-router-dom";
-import {bindActionCreators} from "redux";
+import React, { Component } from 'react'
+import { Link, withRouter } from "react-router-dom";
+import { bindActionCreators } from "redux";
 import * as Actions from "../actions/Actions";
 
 import connect from "react-redux/es/connect/connect";
@@ -13,9 +13,9 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LockIcon from '@material-ui/icons/Lock';
 
 import MenuState from "../constants/MenuState";
-import {ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
+import { ListItemIcon, ListItemText, Menu, MenuItem } from "@material-ui/core";
 import strings from "../localization";
-import {lock, logout} from "../base/OAuth";
+import { lock, logout } from "../base/OAuth";
 
 
 class Header extends Component {
@@ -51,7 +51,7 @@ class Header extends Component {
 
     getHeaderClass() {
 
-        if(this.props.menu.state === MenuState.SHORT) {
+        if (this.props.menu.state === MenuState.SHORT) {
             return 'short';
         }
         else {
@@ -62,21 +62,21 @@ class Header extends Component {
     render() {
 
         return (
-            <div id='header' className={ this.getHeaderClass() }>
+            <div id='header' className={this.getHeaderClass()}>
 
                 <div className='left'>
 
                     {
                         this.props.menu.state === MenuState.FULL &&
-                        <IconButton size='small' onClick={ () => this.props.changeMenuState(MenuState.SHORT) }>
-                            <MoreVert/>
+                        <IconButton size='small' onClick={() => this.props.changeMenuState(MenuState.SHORT)}>
+                            <MoreVert />
                         </IconButton>
                     }
 
                     {
                         this.props.menu.state === MenuState.SHORT &&
-                        <IconButton size='small' onClick={ () => this.props.changeMenuState(MenuState.FULL) }>
-                            <MenuIcon/>
+                        <IconButton size='small' onClick={() => this.props.changeMenuState(MenuState.FULL)}>
+                            <MenuIcon />
                         </IconButton>
                     }
 
@@ -84,23 +84,23 @@ class Header extends Component {
                 <div className='right'>
                     <IconButton
                         size='small'
-                        aria-owns={ this.state.anchorEl ? 'person-menu' : undefined }
+                        aria-owns={this.state.anchorEl ? 'person-menu' : undefined}
                         aria-haspopup="true"
-                        onClick={ (event) => this.handleMenuClick(event) }
+                        onClick={(event) => this.handleMenuClick(event)}
                     >
-                        <PersonIcon/>
+                        <PersonIcon />
                     </IconButton>
                     <Menu
                         id='person-menu'
-                        anchorEl={ this.state.anchorEl }
-                        open={ Boolean(this.state.anchorEl) }
-                        onClose={ () => this.handleMenuClose() }
+                        anchorEl={this.state.anchorEl}
+                        open={Boolean(this.state.anchorEl)}
+                        onClose={() => this.handleMenuClose()}
                     >
-                        <MenuItem onClick={ () => this.logout() }>
+                        <MenuItem onClick={() => this.logout()}>
                             <ListItemIcon>
-                                <ExitToAppIcon/>
+                                <ExitToAppIcon />
                             </ListItemIcon>
-                            <ListItemText inset primary={ strings.header.logout }/>
+                            <ListItemText inset primary={strings.header.logout} />
                         </MenuItem>
                     </Menu>
                 </div>
@@ -110,16 +110,14 @@ class Header extends Component {
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeMenuState: Actions.changeMenuState,
         logout: Actions.logout,
     }, dispatch);
 }
 
-function mapStateToProps({ menuReducers, authReducers })
-{
+function mapStateToProps({ menuReducers, authReducers }) {
     return { menu: menuReducers, user: authReducers.user };
 }
 

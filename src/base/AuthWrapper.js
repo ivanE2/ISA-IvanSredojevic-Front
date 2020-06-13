@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { checkPath } from '../route';
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {isUserLocked, isUserLoggedIn} from "./OAuth";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { isUserLocked, isUserLoggedIn } from "./OAuth";
 
 class AuthWrapper extends Component {
 
@@ -21,20 +21,20 @@ class AuthWrapper extends Component {
 
         let needAuth = checkPath(this.props.location.pathname);
 
-        if(needAuth && isUserLocked()) {
+        if (needAuth && isUserLocked()) {
 
             this.props.history.push({
                 pathname: '/lock',
-                state   : { redirectUrl: this.props.location.pathname }
+                state: { redirectUrl: this.props.location.pathname }
             });
 
             return false;
         }
-        else if(needAuth && !isUserLoggedIn()) {
+        else if (needAuth && !isUserLoggedIn()) {
 
             this.props.history.push({
                 pathname: '/login',
-                state   : { redirectUrl: this.props.location.pathname }
+                state: { redirectUrl: this.props.location.pathname }
             });
 
             return false;
@@ -45,27 +45,25 @@ class AuthWrapper extends Component {
 
     render() {
 
-        if(!this.checkPermission()) {
+        if (!this.checkPermission()) {
             return '';
         }
 
-        const {children} = this.props;
+        const { children } = this.props;
 
         return (
             <React.Fragment>
-                { children }
+                {children}
             </React.Fragment>
         )
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({}, dispatch);
 }
 
-function mapStateToProps({ authReducers })
-{
+function mapStateToProps({ authReducers }) {
     return {
         auth: authReducers,
     };

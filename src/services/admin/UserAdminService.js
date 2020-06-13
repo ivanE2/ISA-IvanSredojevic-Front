@@ -1,4 +1,4 @@
-import {request} from "../../base/HTTP";
+import { request } from "../../base/HTTP";
 import HttpMethod from "../../constants/HttpMethod";
 
 export async function getUsers(data) {
@@ -14,9 +14,9 @@ export async function addUser(data) {
 }
 
 export async function deleteUser(id) {
-    return await request('/api/admin/users/' + id, {} , HttpMethod.DELETE);
+    return await request('/api/admin/users/' + id, {}, HttpMethod.DELETE);
 }
 
 export async function restoreUser(id) {
-    return await request('/api/admin/users/restore/' + id, {} , HttpMethod.PUT);
+    return await request('/api/admin/users/restore/' + id, {}, HttpMethod.PUT);
 }

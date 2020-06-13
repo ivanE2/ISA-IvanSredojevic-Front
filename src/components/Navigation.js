@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {bindActionCreators} from "redux";
-import {Link, withRouter} from "react-router-dom";
-import {connect} from "react-redux";
+import React, { Component } from 'react'
+import { bindActionCreators } from "redux";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import MenuState from "../constants/MenuState";
 
 import List from '@material-ui/core/List';
@@ -12,7 +12,7 @@ import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
-import {Drawer} from "@material-ui/core";
+import { Drawer } from "@material-ui/core";
 
 class Navigation extends Component {
 
@@ -29,7 +29,7 @@ class Navigation extends Component {
 
     getNavigationClass() {
 
-        if(this.props.menu.state === MenuState.SHORT) {
+        if (this.props.menu.state === MenuState.SHORT) {
             return 'navigation-content-container short';
         }
         else {
@@ -58,17 +58,17 @@ class Navigation extends Component {
         return (
             <Drawer variant="permanent" id='navigation'>
 
-                <div className={ this.getNavigationClass() }>
+                <div className={this.getNavigationClass()}>
                     <div className='logo-container'>
                         <div className='title'>
                             <h2>Clinical Centre</h2>
                         </div>
                     </div>
-                    
+
                     <List component="nav">
-                        <Link to={'/'} className={ this.isCurrentPath('/') ? 'navigation-link active' : 'navigation-link'} >
+                        <Link to={'/'} className={this.isCurrentPath('/') ? 'navigation-link active' : 'navigation-link'} >
                             <ListItem className='navigation-item'>
-                                <ListItemText inset primary='Clinics' className='navigation-text'/>
+                                <ListItemText inset primary='Clinics' className='navigation-text' />
                             </ListItem>
                         </Link>
                     </List>
@@ -76,71 +76,71 @@ class Navigation extends Component {
                         this.props.auth.user && this.props.auth.user.role != 'ADMIN' &&
                         <React.Fragment>
                             <List component="nav">
-                                <Link to={'/profile'} className={ this.isCurrentPath('/profile') ? 'navigation-link active' : 'navigation-link'} >
+                                <Link to={'/profile'} className={this.isCurrentPath('/profile') ? 'navigation-link active' : 'navigation-link'} >
                                     <ListItem className='navigation-item'>
-                                        <ListItemText inset primary='Profile' className='navigation-text'/>
+                                        <ListItemText inset primary='Profile' className='navigation-text' />
                                     </ListItem>
                                 </Link>
                             </List>
                             <List component="nav">
-                                <Link to={'/records'} className={ this.isCurrentPath('/records') ? 'navigation-link active' : 'navigation-link'} >
+                                <Link to={'/records'} className={this.isCurrentPath('/records') ? 'navigation-link active' : 'navigation-link'} >
                                     <ListItem className='navigation-item'>
-                                        <ListItemText inset primary='Records' className='navigation-text'/>
+                                        <ListItemText inset primary='Records' className='navigation-text' />
                                     </ListItem>
                                 </Link>
                             </List>
                             <List component="nav">
-                                <Link to={'/surgeries'} className={ this.isCurrentPath('/surgeries') ? 'navigation-link active' : 'navigation-link'} >
+                                <Link to={'/surgeries'} className={this.isCurrentPath('/surgeries') ? 'navigation-link active' : 'navigation-link'} >
                                     <ListItem className='navigation-item'>
-                                        <ListItemText inset primary='Surgery' className='navigation-text'/>
+                                        <ListItemText inset primary='Surgery' className='navigation-text' />
                                     </ListItem>
                                 </Link>
                             </List>
                             <List component="nav">
-                                <Link to={'/appointments'} className={ this.isCurrentPath('/appointments') ? 'navigation-link active' : 'navigation-link'} >
+                                <Link to={'/appointments'} className={this.isCurrentPath('/appointments') ? 'navigation-link active' : 'navigation-link'} >
                                     <ListItem className='navigation-item'>
-                                        <ListItemText inset primary='Appointments' className='navigation-text'/>
+                                        <ListItemText inset primary='Appointments' className='navigation-text' />
                                     </ListItem>
                                 </Link>
                             </List>
                             <List component="nav">
-                                <Link to={'/appointments/history'} className={ this.isCurrentPath('/appointments/history') ? 'navigation-link active' : 'navigation-link'} >
+                                <Link to={'/appointments/history'} className={this.isCurrentPath('/appointments/history') ? 'navigation-link active' : 'navigation-link'} >
                                     <ListItem className='navigation-item'>
-                                        <ListItemText inset primary='Appointments History' className='navigation-text'/>
+                                        <ListItemText inset primary='Appointments History' className='navigation-text' />
                                     </ListItem>
                                 </Link>
                             </List>
                             <List component="nav">
-                                <Link to={'/rate/doctor'} className={ this.isCurrentPath('/rate/doctor') ? 'navigation-link active' : 'navigation-link'} >
+                                <Link to={'/rate/doctor'} className={this.isCurrentPath('/rate/doctor') ? 'navigation-link active' : 'navigation-link'} >
                                     <ListItem className='navigation-item'>
-                                        <ListItemText inset primary='Rate doctors' className='navigation-text'/>
+                                        <ListItemText inset primary='Rate doctors' className='navigation-text' />
                                     </ListItem>
                                 </Link>
                             </List>
                             <List component="nav">
-                                <Link to={'/rate/clinic'} className={ this.isCurrentPath('/rate/clinic') ? 'navigation-link active' : 'navigation-link'} >
+                                <Link to={'/rate/clinic'} className={this.isCurrentPath('/rate/clinic') ? 'navigation-link active' : 'navigation-link'} >
                                     <ListItem className='navigation-item'>
-                                        <ListItemText inset primary='Rate clinics' className='navigation-text'/>
+                                        <ListItemText inset primary='Rate clinics' className='navigation-text' />
                                     </ListItem>
                                 </Link>
                             </List>
                         </React.Fragment>
                     }
-                    
+
                     {
                         this.props.auth.user && this.props.auth.user.role == 'ADMIN' &&
                         <React.Fragment>
                             <List component="nav">
-                                <Link to={'/unconfirmed-users'} className={ this.isCurrentPath('/unconfirmed-users') ? 'navigation-link active' : 'navigation-link'} >
+                                <Link to={'/unconfirmed-users'} className={this.isCurrentPath('/unconfirmed-users') ? 'navigation-link active' : 'navigation-link'} >
                                     <ListItem className='navigation-item'>
-                                        <ListItemText inset primary='Unconfirmed users' className='navigation-text'/>
+                                        <ListItemText inset primary='Unconfirmed users' className='navigation-text' />
                                     </ListItem>
                                 </Link>
                             </List>
                             <List component="nav">
-                                <Link to={'/appointments/uncofirmed'} className={ this.isCurrentPath('/appointments/uncofirmed') ? 'navigation-link active' : 'navigation-link'} >
+                                <Link to={'/appointments/uncofirmed'} className={this.isCurrentPath('/appointments/uncofirmed') ? 'navigation-link active' : 'navigation-link'} >
                                     <ListItem className='navigation-item'>
-                                        <ListItemText inset primary='Unconfirmed appointments' className='navigation-text'/>
+                                        <ListItemText inset primary='Unconfirmed appointments' className='navigation-text' />
                                     </ListItem>
                                 </Link>
                             </List>
@@ -153,20 +153,18 @@ class Navigation extends Component {
                             </List> */}
                         </React.Fragment>
                     }
-                    
+
                 </div>
             </Drawer>
         );
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({}, dispatch);
 }
 
-function mapStateToProps({ menuReducers, authReducers })
-{
+function mapStateToProps({ menuReducers, authReducers }) {
     return { menu: menuReducers, auth: authReducers };
 }
 

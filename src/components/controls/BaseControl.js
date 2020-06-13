@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import strings from "../../localization";
 
 class BaseControl extends Component {
@@ -9,11 +9,11 @@ class BaseControl extends Component {
 
     onChange(event) {
 
-        if(!this.props.onChange) {
+        if (!this.props.onChange) {
             return
         }
 
-        if(!event) {
+        if (!event) {
             this.props.onChange({
                 target: {
                     name: this.state.name,

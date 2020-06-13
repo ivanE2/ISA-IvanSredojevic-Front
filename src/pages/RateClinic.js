@@ -1,13 +1,13 @@
 import React from 'react'
 import TablePage from "../common/TablePage";
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
 import * as Actions from "../actions/Actions";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
 import strings from "../localization";
-import {withSnackbar} from "notistack";
+import { withSnackbar } from "notistack";
 import { getRateClinics } from '../services/ClinicService';
-import {ListItemIcon, ListItemText, Menu, MenuItem, TableCell, Grid, Paper, Drawer} from "@material-ui/core";
+import { ListItemIcon, ListItemText, Menu, MenuItem, TableCell, Grid, Paper, Drawer } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVert from '@material-ui/icons/MoreVert';
 import RateClinicPage from './RateClinicPage';
@@ -40,7 +40,7 @@ class RateClinic extends TablePage {
             term: this.state.searchData.search.toLowerCase()
         }).then(response => {
 
-            if(!response.ok) {
+            if (!response.ok) {
                 return;
             }
 
@@ -61,7 +61,7 @@ class RateClinic extends TablePage {
     }
 
     renderAddContent() {
-        return <RateClinicPage onCancel={ this.onCancel } onFinish={ this.onFinish } clinic={ this.state.clinic }/>
+        return <RateClinicPage onCancel={this.onCancel} onFinish={this.onFinish} clinic={this.state.clinic} />
     }
 
     handleRate(item) {
@@ -77,25 +77,25 @@ class RateClinic extends TablePage {
 
         let ariaOwns = 'action-menu-' + index;
 
-        return(
+        return (
             <TableCell>
                 <IconButton
-                    aria-owns={ this.state.anchorEl ? ariaOwns : undefined }
+                    aria-owns={this.state.anchorEl ? ariaOwns : undefined}
                     aria-haspopup="true"
-                    onClick={ (event) => this.handleMenuClick(event, ariaOwns) }
+                    onClick={(event) => this.handleMenuClick(event, ariaOwns)}
                 >
-                    <MoreVert/>
+                    <MoreVert />
                 </IconButton>
                 {
                     ariaOwns === this.state.ariaOwns &&
                     <Menu
-                        id={ ariaOwns }
-                        anchorEl={ this.state.anchorEl }
-                        open={ Boolean(this.state.anchorEl) }
-                        onClose={ () => this.handleMenuClose() }
+                        id={ariaOwns}
+                        anchorEl={this.state.anchorEl}
+                        open={Boolean(this.state.anchorEl)}
+                        onClose={() => this.handleMenuClose()}
                     >
-                        <MenuItem onClick={ () => this.handleRate(item) }>
-                            <ListItemText inset primary='Rate'/>
+                        <MenuItem onClick={() => this.handleRate(item)}>
+                            <ListItemText inset primary='Rate' />
                         </MenuItem>
                     </Menu>
                 }
@@ -105,15 +105,13 @@ class RateClinic extends TablePage {
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeFullScreen: Actions.changeFullScreen
     }, dispatch);
 }
 
-function mapStateToProps({ menuReducers })
-{
+function mapStateToProps({ menuReducers }) {
     return { menu: menuReducers };
 }
 

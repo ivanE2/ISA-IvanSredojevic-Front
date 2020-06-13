@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class ErrorViewer extends Component {
 
@@ -17,20 +17,20 @@ class ErrorViewer extends Component {
 
         for (let i = 0; i < errors.length; i++) {
             result.push(
-                <li key={ 'error- ' + this.props.type + '-' + i } >{errors[i].message}</li>
+                <li key={'error- ' + this.props.type + '-' + i} >{errors[i].message}</li>
             )
         }
 
         return result;
     }
 
-    render () {
+    render() {
 
-        return this.props.errors[this.props.type] ? this.props.errors[this.props.type].map((error) =>{
+        return this.props.errors[this.props.type] ? this.props.errors[this.props.type].map((error) => {
             return (
 
-                <ul className='error-container' key={ 'error- container-' + this.props.type }>
-                    { this.getErrors() }
+                <ul className='error-container' key={'error- container-' + this.props.type}>
+                    {this.getErrors()}
                 </ul>
             )
         }) : '';

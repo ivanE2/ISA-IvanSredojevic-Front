@@ -1,8 +1,8 @@
 import React from 'react'
 
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
 import * as Actions from "../../actions/Actions";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
 import strings from "../../localization";
 import Page from "../../common/Page";
@@ -18,16 +18,16 @@ import { register } from '../../services/UserService';
 class Register extends Page {
 
     validationList = {
-        email: [ {type: Validators.EMAIL } ],
-        password: [ {type: Validators.REQUIRED } ],
-        passwordRepeat: [ {type: Validators.REQUIRED } ],
-        address: [ {type: Validators.REQUIRED } ],
-        city: [ {type: Validators.REQUIRED } ],
-        country: [ {type: Validators.REQUIRED } ],
-        phoneNumber: [ {type: Validators.REQUIRED } ],
-        jbo: [ {type: Validators.REQUIRED } ],
-        name: [ {type: Validators.REQUIRED } ],
-        surname: [ {type: Validators.REQUIRED } ]
+        email: [{ type: Validators.EMAIL }],
+        password: [{ type: Validators.REQUIRED }],
+        passwordRepeat: [{ type: Validators.REQUIRED }],
+        address: [{ type: Validators.REQUIRED }],
+        city: [{ type: Validators.REQUIRED }],
+        country: [{ type: Validators.REQUIRED }],
+        phoneNumber: [{ type: Validators.REQUIRED }],
+        jbo: [{ type: Validators.REQUIRED }],
+        name: [{ type: Validators.REQUIRED }],
+        surname: [{ type: Validators.REQUIRED }]
     };
 
     constructor(props) {
@@ -46,25 +46,25 @@ class Register extends Page {
 
     componentDidMount() {
 
-        if(this.props.auth.user) {
+        if (this.props.auth.user) {
             this.props.history.push('/');
         }
     }
 
     keyPress(event) {
 
-        if(event.key == 'Enter') {
+        if (event.key == 'Enter') {
             this.register()
         }
     }
 
     register() {
 
-        if(!this.validate()) {
+        if (!this.validate()) {
             return;
         }
 
-        if(this.state.data.password != this.state.data.passwordRepeat) {
+        if (this.state.data.password != this.state.data.passwordRepeat) {
             this.setError('password', 'Password mismatch');
             return;
         }
@@ -87,9 +87,9 @@ class Register extends Page {
 
                         <h1>Registration</h1>
 
-                        <RegistrationForm onSubmit={ () => this.register() } onChange={ this.changeData }
-                                   keyPress={ this.keyPress }
-                                   data={ this.state.data } errors={ this.state.errors }/>
+                        <RegistrationForm onSubmit={() => this.register()} onChange={this.changeData}
+                            keyPress={this.keyPress}
+                            data={this.state.data} errors={this.state.errors} />
                     </Paper>
                 </Grid>
             </div>
@@ -97,16 +97,14 @@ class Register extends Page {
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeFullScreen: Actions.changeFullScreen,
         login: Actions.login
     }, dispatch);
 }
 
-function mapStateToProps({ menuReducers, authReducers })
-{
+function mapStateToProps({ menuReducers, authReducers }) {
     return { menu: menuReducers, auth: authReducers };
 }
 

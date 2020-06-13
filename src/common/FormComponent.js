@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {validate, isFormValid} from '../functions/Validation';
+import React, { Component } from 'react'
+import { validate, isFormValid } from '../functions/Validation';
 import BaseComponent from "../common/BaseComponent";
 import update from 'immutability-helper';
 
@@ -25,7 +25,7 @@ class FormComponent extends BaseComponent {
     changeData(event, data = 'data') {
 
         this.setState({
-            [data]: update(this.state[data], { [event.target.name]: {$set: event.target.value} }),
+            [data]: update(this.state[data], { [event.target.name]: { $set: event.target.value } }),
             hasChanges: true
         });
     }
@@ -54,18 +54,18 @@ class FormComponent extends BaseComponent {
         return isFinite(n)
     }
 
-    validate () {
+    validate() {
 
         let errors = validate(this.state.data, this.validationList);
 
-        this.setState({errors});
+        this.setState({ errors });
 
         return isFormValid(errors);
     }
 
     setError(key, value) {
         this.setState({
-            errors: update(this.state.errors, { [key]: {$set: [ { message: value} ]} })
+            errors: update(this.state.errors, { [key]: { $set: [{ message: value }] } })
         });
     }
 

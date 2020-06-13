@@ -1,6 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
-import {getDropdownOptions} from '../../util/DropdownUtil';
+import { getDropdownOptions } from '../../util/DropdownUtil';
 import BaseControl from './BaseControl';
 
 class SelectControl extends BaseControl {
@@ -9,11 +9,11 @@ class SelectControl extends BaseControl {
         super(props);
 
         this.state = {
-            options: getDropdownOptions(props.options ? props.options : [], props.name, props.nameKey ),
+            options: getDropdownOptions(props.options ? props.options : [], props.name, props.nameKey),
             selected: props.selected ? props.selected : undefined,
-            valueKey:  props.valueKey ? props.valueKey : '',
+            valueKey: props.valueKey ? props.valueKey : '',
             nameKey: props.nameKey ? props.nameKey : '',
-            name: props.name ? props.name: '',
+            name: props.name ? props.name : '',
             hasError: props.hasError,
             error: props.error ? props.error : '',
             placeholder: props.placeholder ? props.placeholder : 'Select...',
@@ -24,7 +24,7 @@ class SelectControl extends BaseControl {
     componentWillReceiveProps(props) {
 
         this.setState({
-            options: getDropdownOptions(props.options ? props.options : [], props.name, props.nameKey ),
+            options: getDropdownOptions(props.options ? props.options : [], props.name, props.nameKey),
             hasError: props.hasError,
             error: props.error ? props.error : '',
             selected: props.selected ? props.selected : undefined,
@@ -36,14 +36,14 @@ class SelectControl extends BaseControl {
 
     getValue() {
 
-        if(!this.state.selected) {
+        if (!this.state.selected) {
             return null;
         }
 
-        if(this.state.valueKey) {
+        if (this.state.valueKey) {
             const result = this.state.options.find(option => option.value[this.state.valueKey] == this.state.selected[this.state.valueKey]);
 
-            if(result) {
+            if (result) {
                 return result;
             }
         }
@@ -56,24 +56,24 @@ class SelectControl extends BaseControl {
             <div className={'select-control-container' + (this.state.hasError ? ' error' : '')} style={{ minWidth: '200px' }}>
                 {
                     this.props.label &&
-                    <label>{ this.props.label }</label>
+                    <label>{this.props.label}</label>
                 }
 
                 <Select
-                    label={ this.props.label }
-                    placeholder={ this.state.placeholder }
-                    onChange={ (event) => this.onChange(event) }
-                    options={ this.state.options }
+                    label={this.props.label}
+                    placeholder={this.state.placeholder}
+                    onChange={(event) => this.onChange(event)}
+                    options={this.state.options}
                     value={this.getValue()}
-                    isClearable={ this.props.isClearable }
+                    isClearable={this.props.isClearable}
                     isLoading={this.state.isLoading}
-                    style={{ width: '200px'}}
+                    style={{ width: '200px' }}
                     width='200px'
                 />
 
                 {
                     this.state.hasError &&
-                    <p className='error'>{ this.state.error }</p>
+                    <p className='error'>{this.state.error}</p>
                 }
             </div>
         )

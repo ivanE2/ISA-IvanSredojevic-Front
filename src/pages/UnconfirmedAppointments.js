@@ -1,16 +1,16 @@
 import React from 'react'
 import TablePage from "../common/TablePage";
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
 import * as Actions from "../actions/Actions";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
 import strings from "../localization";
-import {withSnackbar} from "notistack";
+import { withSnackbar } from "notistack";
 import { getSurgeries } from '../services/SurgeryService';
 import SelectControl from '../components/controls/SelectControl';
 import DrawerWrapper from '../common/DrawerWrapper';
 import PageState from '../constants/PageState';
-import {ListItemIcon, ListItemText, Menu, MenuItem, TableCell, Grid, Paper, Drawer} from "@material-ui/core";
+import { ListItemIcon, ListItemText, Menu, MenuItem, TableCell, Grid, Paper, Drawer } from "@material-ui/core";
 import { getAppointments, getUnconfirmedAppointments } from '../services/AppointmentService';
 import IconButton from "@material-ui/core/IconButton";
 import MoreVert from '@material-ui/icons/MoreVert';
@@ -33,7 +33,7 @@ class UnconfirmedAppointments extends TablePage {
 
         this.state.showActions = true;
 
-        this.state.sort = {name: 'description asc', value: 'description,asc'}
+        this.state.sort = { name: 'description asc', value: 'description,asc' }
 
         this.state.showAdd = false;
     }
@@ -67,7 +67,7 @@ class UnconfirmedAppointments extends TablePage {
             sort: this.state.sort.value
         }).then(response => {
 
-            if(!response.ok) {
+            if (!response.ok) {
                 return;
             }
 
@@ -88,8 +88,8 @@ class UnconfirmedAppointments extends TablePage {
     }
 
     renderAddContent() {
-        return <ApproveAppointment onCancel={ this.onCancel } onFinish={ this.onFinish }
-            appointment={ this.state.selectedItem }
+        return <ApproveAppointment onCancel={this.onCancel} onFinish={this.onFinish}
+            appointment={this.state.selectedItem}
         />
     }
 
@@ -106,25 +106,25 @@ class UnconfirmedAppointments extends TablePage {
 
         let ariaOwns = 'action-menu-' + index;
 
-        return(
+        return (
             <TableCell>
                 <IconButton
-                    aria-owns={ this.state.anchorEl ? ariaOwns : undefined }
+                    aria-owns={this.state.anchorEl ? ariaOwns : undefined}
                     aria-haspopup="true"
-                    onClick={ (event) => this.handleMenuClick(event, ariaOwns) }
+                    onClick={(event) => this.handleMenuClick(event, ariaOwns)}
                 >
-                    <MoreVert/>
+                    <MoreVert />
                 </IconButton>
                 {
                     ariaOwns === this.state.ariaOwns &&
                     <Menu
-                        id={ ariaOwns }
-                        anchorEl={ this.state.anchorEl }
-                        open={ Boolean(this.state.anchorEl) }
-                        onClose={ () => this.handleMenuClose() }
+                        id={ariaOwns}
+                        anchorEl={this.state.anchorEl}
+                        open={Boolean(this.state.anchorEl)}
+                        onClose={() => this.handleMenuClose()}
                     >
-                        <MenuItem onClick={ () => this.handleApprove(item) }>
-                            <ListItemText inset primary='Approve'/>
+                        <MenuItem onClick={() => this.handleApprove(item)}>
+                            <ListItemText inset primary='Approve' />
                         </MenuItem>
                     </Menu>
                 }
@@ -139,29 +139,29 @@ class UnconfirmedAppointments extends TablePage {
             sort: event.target.value
         }, () => {
             this.fetchData();
-        });    
+        });
     }
 
     render() {
 
         return (
             <Grid id='table-page'>
-                { this.renderDialog(strings.table.confirmDelete, 'To subscribe to this website, please enter your email address here. We will send\n' +
-                    'updates occasionally.', this.cancelDelete, this.delete) }
+                {this.renderDialog(strings.table.confirmDelete, 'To subscribe to this website, please enter your email address here. We will send\n' +
+                    'updates occasionally.', this.cancelDelete, this.delete)}
                 <div className='header'>
-                    { this.getPageHeader() }
+                    {this.getPageHeader()}
 
-                    <div className='filter-controls' style={{ width: '200px'}}>
+                    <div className='filter-controls' style={{ width: '200px' }}>
 
                         {
                             this.state.showSearch &&
                             <SelectControl
                                 label='Sort'
-                                style={{ width: '200px'}}
-                                options={[{name: 'description asc', value: 'description,asc'}, {name: 'dateCreated asc', value: 'dateCreated,asc'},
-                                {name: 'type asc', value: 'type,asc'},
-                                {name: 'description desc', value: 'description,desc'}, {name: 'dateCreated desc', value: 'dateCreated,desc'},
-                                {name: 'type desc', value: 'type,desc'} ]}
+                                style={{ width: '200px' }}
+                                options={[{ name: 'description asc', value: 'description,asc' }, { name: 'dateCreated asc', value: 'dateCreated,asc' },
+                                { name: 'type asc', value: 'type,asc' },
+                                { name: 'description desc', value: 'description,desc' }, { name: 'dateCreated desc', value: 'dateCreated,desc' },
+                                { name: 'type desc', value: 'type,desc' }]}
                                 nameKey={'name'}
                                 valueKey={'value'}
                                 selected={this.state.sort}
@@ -176,12 +176,12 @@ class UnconfirmedAppointments extends TablePage {
                     </div>
                 </div>
                 <Paper md={12}>
-                    { this.renderTable(this.state.tableData) }
+                    {this.renderTable(this.state.tableData)}
                 </Paper>
 
-                <Drawer id='drawer' anchor='right' open={  this.showDrawer() } onClose={ () => this.setPageState(PageState.View) } >
-                    <DrawerWrapper onBack={ () => this.setPageState(PageState.View) }>
-                        { this.renderDrawerContent() }
+                <Drawer id='drawer' anchor='right' open={this.showDrawer()} onClose={() => this.setPageState(PageState.View)} >
+                    <DrawerWrapper onBack={() => this.setPageState(PageState.View)}>
+                        {this.renderDrawerContent()}
                     </DrawerWrapper>
                 </Drawer>
             </Grid>
@@ -189,15 +189,13 @@ class UnconfirmedAppointments extends TablePage {
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeFullScreen: Actions.changeFullScreen
     }, dispatch);
 }
 
-function mapStateToProps({ menuReducers })
-{
+function mapStateToProps({ menuReducers }) {
     return { menu: menuReducers };
 }
 

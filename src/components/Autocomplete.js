@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 
 import Select from 'react-select';
 import { withStyles } from '@material-ui/core/styles';
-import {FormControl, InputLabel, MenuItem, NoSsr, Paper, TextField, Typography} from "@material-ui/core";
+import { FormControl, InputLabel, MenuItem, NoSsr, Paper, TextField, Typography } from "@material-ui/core";
 import BaseControl from "./controls/BaseControl";
 
 const styles = theme => ({
@@ -68,15 +68,15 @@ function NoOptionsMessage(props) {
 
 function inputComponent({ inputRef, ...props }) {
 
-    return <div ref={inputRef} {...props}/>;
+    return <div ref={inputRef} {...props} />;
 }
 
 function Control(props) {
 
     return (
         <TextField
-            error={ props.selectProps.error }
-            helperText={ props.selectProps.helperText }
+            error={props.selectProps.error}
+            helperText={props.selectProps.helperText}
             fullWidth
             InputProps={{
                 inputComponent,
@@ -159,7 +159,7 @@ class Autocomplete extends BaseControl {
         super(props);
 
         this.state = {
-            items: props.items ?  this.transformItems(props.items) : [],
+            items: props.items ? this.transformItems(props.items) : [],
             selectedItem: undefined
         };
 
@@ -168,7 +168,7 @@ class Autocomplete extends BaseControl {
 
     componentWillReceiveProps(nextProps) {
 
-        this.state.items = nextProps.items ?  this.transformItems(nextProps.items) : [];
+        this.state.items = nextProps.items ? this.transformItems(nextProps.items) : [];
         this.state.selectedItem = nextProps.selectedItem
     }
 
@@ -178,11 +178,11 @@ class Autocomplete extends BaseControl {
 
     transformItem(item) {
 
-        if(!item) {
+        if (!item) {
             return item;
         }
 
-        if(item.value && item.label) {
+        if (item.value && item.label) {
             return item;
         }
 
@@ -218,15 +218,15 @@ class Autocomplete extends BaseControl {
             <FormControl className='autocomplete'>
                 <NoSsr>
                     <Select
-                        error={ this.props.error }
-                        helperText={ this.props.helperText }
+                        error={this.props.error}
+                        helperText={this.props.helperText}
                         classes={classes}
                         styles={selectStyles}
-                        options={ this.state.items }
-                        components={ components }
-                        value={ this.transformItem(this.state.selectedItem) }
-                        placeholder={ this.props.placeholder ? this.props.placeholder : '' }
-                        onChange={ this.handleChange }
+                        options={this.state.items}
+                        components={components}
+                        value={this.transformItem(this.state.selectedItem)}
+                        placeholder={this.props.placeholder ? this.props.placeholder : ''}
+                        onChange={this.handleChange}
                         isClearable
                         margin="normal"
                         inputProps={{
